@@ -1,4 +1,3 @@
-import { serve } from "@hono/node-server";
 import { swaggerUI } from "@hono/swagger-ui";
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { Hono } from "hono";
@@ -32,8 +31,4 @@ openApiApp.doc("/openapi.json", openApiDocument);
 app.route("/", openApiApp);
 app.get("/docs", swaggerUI({ url: "/openapi.json" }));
 
-// Start server
-serve({
-	fetch: app.fetch,
-	port: 3000,
-});
+export default app;
