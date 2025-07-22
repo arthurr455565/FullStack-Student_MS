@@ -9,7 +9,7 @@ import { openApiDocument } from "./openapi";
 
 // Create base app and openapi app
 const app = new Hono();
-const openApiApp = new OpenAPIHono();
+const openApi = new OpenAPIHono();
 
 // Middleware
 app.use(logger());
@@ -27,8 +27,8 @@ app.get("/", (c) => {
 app.route("/api/v1/students", studentRoutes);
 
 // Register OpenAPI routes (for Swagger UI)
-openApiApp.doc("/openapi.json", openApiDocument);
-app.route("/", openApiApp);
+openApi.doc("/openapi.json", openApiDocument);
+app.route("/", openApi);
 app.get("/docs", swaggerUI({ url: "/openapi.json" }));
 
 export default app;
