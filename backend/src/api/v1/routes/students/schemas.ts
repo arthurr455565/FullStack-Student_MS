@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+//Student Schema
 export const createStudentSchema = z.object({
 	id: z.cuid2(),
 	name: z.string().min(2).max(50),
@@ -14,6 +15,7 @@ export const createStudentSchema = z.object({
 
 export type createStudentInput = z.infer<typeof createStudentSchema>;
 
+//Response Schema
 export const studentResponseSchema = z.object({
 	id: z.cuid2(),
 	name: z.string().min(2).max(50),
@@ -30,6 +32,7 @@ export const studentResponseSchema = z.object({
 
 export type studentResponse = z.infer<typeof studentResponseSchema>;
 
+//Update Schema
 export const studentUpdateSchema = z
 	.object({
 		name: z.string().min(2).max(50),
@@ -44,14 +47,16 @@ export const studentUpdateSchema = z
 
 export type studentUpdateInput = z.infer<typeof studentUpdateSchema>;
 
-export const studentDeleteSchema = z.object({
-	id: z.cuid2(),
-});
-
-export type studentDeleteInput = z.infer<typeof studentDeleteSchema>;
-
+//Access Single Student Detail Schema
 export const studentSingleResponseSchema = z.object({
 	id: z.cuid2().transform((val) => parseInt(val, 10)),
 });
 
 export type studentSingleResponse = z.infer<typeof studentSingleResponseSchema>;
+
+//Student Delete by ID Schema
+export const studentDeleteSchema = z.object({
+	id: z.cuid2(),
+});
+
+export type studentDeleteInput = z.infer<typeof studentDeleteSchema>;

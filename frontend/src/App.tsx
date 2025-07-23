@@ -1,7 +1,14 @@
+import { Outlet } from 'react-router-dom';
+
 export default function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center text-3xl font-bold text-blue-500">
-      Student Management System
+    <div className="min-h-screen">
+      <header className="bg-blue-600 text-white p-4">
+        <h1 className="text-2xl font-bold text-center">Student Management System</h1>
+      </header>
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
 }

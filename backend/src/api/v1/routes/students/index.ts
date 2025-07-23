@@ -7,10 +7,11 @@ import {
 	studentUpdateSchema,
 } from "./schemas";
 
+//Create Hono Route
 const studentRoutes = new Hono();
 
 studentRoutes.post("/", zValidator("json", createStudentSchema), async (c) => {
-	const body = await c.req.valid("json");
+	const body = c.req.valid("json");
 
 	const student = await prisma.student.create({
 		data: body,
@@ -28,7 +29,7 @@ studentRoutes.put(
 	zValidator("json", studentUpdateSchema),
 	async (c) => {
 		const { id } = c.req.param();
-		const body = await c.req.valid("json");
+		const body = c.req.valid("json");
 		const student = await prisma.student.update({
 			where: { id },
 			data: body,
@@ -58,7 +59,7 @@ studentRoutes.get("/:id", async (c) => {
 		where: { id },
 	});
 	if (!student) {
-		return c.json(student);
+		return c.json({ error: "Student not found" }, 404);
 	}
 	return c.json(student);
 });

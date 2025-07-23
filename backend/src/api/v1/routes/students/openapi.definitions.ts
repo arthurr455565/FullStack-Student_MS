@@ -2,6 +2,7 @@ import { createRoute } from "@hono/zod-openapi";
 import { z } from "zod";
 import {
 	createStudentSchema,
+	studentDeleteSchema,
 	studentResponseSchema,
 	studentSingleResponseSchema,
 } from "./schemas";
@@ -57,6 +58,32 @@ export const getStudentByIdRoute = createRoute({
 			content: {
 				"application/json": {
 					schema: studentResponseSchema,
+				},
+			},
+		},
+		400: {
+			description: "Invalid input",
+		},
+		404: {
+			description: "Student not found",
+		},
+	},
+});
+
+export const deleteStudentRoute = createRoute({
+	method: "delete",
+	path: "/students/{id}",
+	request: {
+		params: studentDeleteSchema,
+	},
+	responses: {
+		200: {
+			description: "Student deleted successfully",
+			content: {
+				"application/json": {
+					schema: z.object({
+						message: z.string(),
+					}),
 				},
 			},
 		},
