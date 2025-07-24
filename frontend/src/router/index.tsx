@@ -21,12 +21,12 @@ export const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: 'add-student',
+        path: '/add-student',
         element: <AddStudent />
       },
       {
-      path: 'edit-student',
-      element: <EditStudent/>
+      path: '/edit-student/:id/',
+      element: <EditStudent />
       },
       {
         path: 'delete-student',
@@ -35,3 +35,4 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+export default EditStudent;

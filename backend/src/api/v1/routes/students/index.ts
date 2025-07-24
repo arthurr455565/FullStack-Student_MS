@@ -10,6 +10,7 @@ import {
 //Create Hono Route
 const studentRoutes = new Hono();
 
+//POST method for Student
 studentRoutes.post("/", zValidator("json", createStudentSchema), async (c) => {
 	const body = c.req.valid("json");
 
@@ -19,11 +20,17 @@ studentRoutes.post("/", zValidator("json", createStudentSchema), async (c) => {
 	return c.json(student, 201);
 });
 
+//Getting All Student Data
 studentRoutes.get("/", async (c) => {
-	const students = await prisma.student.findMany();
+	const students = await prisma.student.findMany(
+		{orderBy:{
+			id:"asc"
+		}}
+	);
 	return c.json(students, 200);
 });
 
+//Updating Student Data by ID
 studentRoutes.put(
 	"/:id",
 	zValidator("json", studentUpdateSchema),
@@ -38,6 +45,7 @@ studentRoutes.put(
 	},
 );
 
+//Deleting a Student Data by ID
 studentRoutes.delete(
 	"/:id",
 	zValidator("param", studentDeleteSchema),
@@ -53,6 +61,7 @@ studentRoutes.delete(
 	},
 );
 
+//Getting Single Data of Student
 studentRoutes.get("/:id", async (c) => {
 	const { id } = c.req.param();
 	const student = await prisma.student.findUnique({

@@ -2,14 +2,15 @@ import { z } from "zod";
 
 //Student Schema
 export const createStudentSchema = z.object({
-	id: z.cuid2(),
-	name: z.string().min(2).max(50),
+	name: z.string().min(2,{
+		message:"Name must be at least 2 characters long."
+	}).max(50),
 	rollNumber: z.string().min(3).max(16),
 	email: z.email(),
 	dateOfBirth: z.coerce.date(),
 	age: z.number().int().positive().min(5).max(120),
 	gender: z.string().min(1).max(10),
-	address: z.string().min(5).max(200),
+	address: z.string().min(1).max(200),
 	phoneNumber: z.string().min(10).max(15),
 });
 
@@ -33,17 +34,8 @@ export const studentResponseSchema = z.object({
 export type studentResponse = z.infer<typeof studentResponseSchema>;
 
 //Update Schema
-export const studentUpdateSchema = z
-	.object({
-		name: z.string().min(2).max(50),
-		rollNumber: z.string().min(3).max(16),
-		email: z.email(),
-		dateOfBirth: z.coerce.date(),
-		age: z.number().int().positive().min(5).max(120),
-		address: z.string().min(5).max(200),
-		phoneNumber: z.string().min(10).max(15),
-	})
-	.partial();
+export const studentUpdateSchema = 
+	createStudentSchema.partial();
 
 export type studentUpdateInput = z.infer<typeof studentUpdateSchema>;
 
