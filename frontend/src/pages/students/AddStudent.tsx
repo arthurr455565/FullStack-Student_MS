@@ -47,9 +47,7 @@ const AddStudent = () => {
         }
     };
 
-    const handleClose = () => {
-        navigate("/dashboard")
-    }
+
 
     return (            
         <form

@@ -19,7 +19,7 @@ app.use(prettyJSON());
 // Home route
 app.get("/", (c) => {
 	return c.text(
-		"Welcome to the Student Management API! Visit /docs for API documentation.",
+		"Welcome to the Student Management API!",
 	);
 });
 
