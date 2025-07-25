@@ -43,14 +43,21 @@ const AddStudent = () => {
             navigate("/dashboard")
         } catch (error) {
             console.error("Error creating student:", error);
+            alert("Error creating student")
         }
     };
 
-    return (
+    const handleClose = () => {
+        navigate("/dashboard")
+    }
+
+    return (            
         <form
             className="w-full max-w-mm mx-auto bg-white shadow-lg rounded-lg p-8 space-y-6 sm:max-w-md"
             onSubmit={handleSubmit}
         >
+
+            
             <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">Add Student</h2>
             <div className="grid grid-cols-1 gap-5">
                 <div>

@@ -5,8 +5,6 @@ import AddStudent from '../pages/students/AddStudent';
 import Dashboard from '../pages/dashboard/Dashboard';
 import EditStudent from '../pages/students/EditStudent';
 import HomePage from '../pages/home/HomePage';
-import DeleteStudent from '../pages/students/DeleteStudent';
-
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -27,10 +25,6 @@ export const router = createBrowserRouter([
       {
       path: '/edit-student/:id/',
       element: <EditStudent />
-      },
-      {
-        path: 'delete-student',
-        element: <DeleteStudent />
       },
     ],
   },

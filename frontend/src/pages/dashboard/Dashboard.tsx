@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState , useEffect} from "react"
-import {getStudents} from "../../services/StudentService";
+import {getStudents, deleteStudent} from "../../services/StudentService";
 import type { Student } from "../../services/StudentService";
 
 const Dashboard = () => {
@@ -20,6 +20,22 @@ const Dashboard = () => {
 
   },[])
 
+  const handleDelete =  async (id:string | undefined)=>{
+    if (id === undefined) {
+      console.error("Student ID is undefined, cannot delete.");
+      return;
+    }
+    try {
+      await deleteStudent(id);
+      const data = await getStudents();
+      setAllStudents(data);
+    } catch (error) {
+      console.error("Error deleting student:", error);
+    }
+
+  }
+
+
     return(
       <>
         {/* Card 1 */}
@@ -37,7 +53,8 @@ const Dashboard = () => {
           </div>     
         </div>
         <div>
-          {allStudents.map((student) => (
+   
+          {allStudents.map((student:Student) => (
             <div key={student.id} className = "p-4 border-b border-gray-200">
               <div>ID: {student.id} </div>
               <div className = "flex gap-4 mt-4">Name: {student.name} </div>
@@ -50,12 +67,19 @@ const Dashboard = () => {
               <div>Phone No: {student.phoneNumber} </div>
               
               <div className = "flex gap-4 mt-2">
-              <Link to = {`/edit-student/${student.id}`} className = "text-blue-500 hover:underline">
+              <Link 
+              to = {`/edit-student/${student.id}`} 
+              className = "text-blue-500 hover:underline">
               Edit
               </Link>
-              <Link to = {`/delete-student/${student.id}`} className = "text-blue-500 hover:underline">
+              <button
+                type="button"
+                onClick={() => handleDelete(student.id)}
+                className="text-blue-500 hover:underline cursor-pointer"
+                style={{ cursor: "pointer" }}
+              >
               Delete
-              </Link> 
+              </button> 
               </div>
             </div>
           ))}
